@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  sender:
+    build:
+      dockerfile: Sender/Dockerfile
+    ports:
+      - "5082:5000"  # Public Port:Internal Port
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: 'http://0.0.0.0:5000'
+    networks:
+      - pingnet
+  responder:
+    build:
+      dockerfile: Responder/Dockerfile
+    ports:
+      - "5083:5001"  # Public Port:Internal Port
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: 'http://0.0.0.0:5001'
+    networks:
+      - pingnet
+networks:
+  pingnet:
+    driver: bridge
