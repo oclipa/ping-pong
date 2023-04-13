@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sender.Ports;
+using Ports;
 
 namespace Sender.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SendController : ControllerBase, IControllerBase
+    public class SendController : ControllerBase
     {
         private readonly IPinger _pinger;
         private readonly ILogger<SendController> _logger;
@@ -25,10 +25,5 @@ namespace Sender.Controllers
 
             return await _pinger.PingAsync(new MessagePackage { Message = "ping" });
         }
-    }
-
-    public class MessagePackage
-    {
-        public string Message { get; set; }
     }
 }

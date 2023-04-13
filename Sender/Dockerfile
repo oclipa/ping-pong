@@ -8,6 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Sender/Sender.csproj", "Sender/"]
+COPY ["Adapters/Adapters.csproj", "Adapters/"]
+COPY ["Ports/Ports.csproj", "Ports/"]
 RUN dotnet restore "Sender/Sender.csproj"
 COPY . .
 WORKDIR "/src/Sender"

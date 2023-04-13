@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "WebAppTest": {
+    "PingPong": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Responder.Ports;
+using Ports;
 
 namespace Responder.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RespondController : ControllerBase, IControllerBase
+    public class RespondController : ControllerBase
     {
         private readonly IPinger _pinger;
         private readonly ILogger<RespondController> _logger;
@@ -22,14 +22,8 @@ namespace Responder.Controllers
             _logger.LogInformation($"Received {message.Message}");
 
             await Task.Delay(1000);
-
             
             return await _pinger.PingAsync(new MessagePackage { Message = "pong"});
         }
-    }
-
-    public class MessagePackage
-    {
-        public string Message { get; set; }
     }
 }

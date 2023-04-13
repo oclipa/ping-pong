@@ -1,5 +1,5 @@
-﻿using Sender.Adapters;
-using Sender.Ports;
+﻿using Adapters;
+using Ports;
 
 namespace Sender
 {
@@ -13,7 +13,6 @@ namespace Sender
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
-            //services.AddHttpClient("responderClient", c => c.BaseAddress = new System.Uri("http://localhost:5083"));
 
             services.AddTransient<IPinger, ResponderPinger>();
 
