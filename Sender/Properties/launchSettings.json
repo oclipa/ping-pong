@@ -1,3 +1,4 @@
+// profiles that can be used when launched using dotnet run
 {
   "profiles": {
     "PingPong": {

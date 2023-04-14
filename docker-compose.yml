@@ -1,31 +1,31 @@
 version: "3.9"
 services:
-  sender:
+  sender: # within the cluster, the sender service listens on port 5000, but exposes port 5082 to the external world
     build:
       dockerfile: Sender/Dockerfile
     ports:
       - "5082:5000"  # Public Port:Internal Port
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: 'http://0.0.0.0:5000'
+      ASPNETCORE_URLS: 'http://0.0.0.0:5000' # specifies the URL on which the service listens
       PingPong__AppName:  'ping-pong'
       PingPong__TargetName:  'responder'
-      PingPong__TargetPort:  '5001'
+      PingPong__TargetPort:  '5001' # the port of the other service (i.e. the target)
     networks:
-      - pingnet
-  responder:
+      - pingnet # used shared network
+  responder: # within the cluster, the responder service listens on port 5001, but exposes port 5083 to the external world
     build:
       dockerfile: Responder/Dockerfile
     ports:
       - "5083:5001"  # Public Port:Internal Port
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: 'http://0.0.0.0:5001'
+      ASPNETCORE_URLS: 'http://0.0.0.0:5001' # specifies the URL on which the service listens
       PingPong__AppName:  'ping-pong'
       PingPong__TargetName:  'sender'
-      PingPong__TargetPort:  '5000'
+      PingPong__TargetPort:  '5000' # the port of the other service (i.e. the target)
     networks:
-      - pingnet
+      - pingnet # used shared network
 networks:
-  pingnet:
+  pingnet: # create network to be shared by services
     driver: bridge
